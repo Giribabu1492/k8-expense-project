@@ -24,5 +24,22 @@ spec:
       containers:
       - name: nginx
         image: giri1492/mysql:1.0.0
-        
        
+        
+       #using deployemt model so that all replica and pod will create automatically.
+       #also to connect pod to pod communication between mysql to backend we have to use clusterip  services bcz pure internal
+       #backend directly will not connect to mysql pod it will conect mysql service file to handle loadbalance
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: mysql
+spec:
+  selector:
+    app: mysql
+    tier: mysql
+    project: expense
+  ports: 
+  - protocol: TCP
+    port: 3306
+    targetPort: 3306       
