@@ -22,24 +22,27 @@ spec:
         project: expense
     spec:
       containers:
-      - name: nginx
+      - name: backend
         image: giri1492/backend:1.0.0
-      
----     
-  kind: Service
-  apiVersion: v1
-  metadata:
-    name: backend
-    namespace: expense
-  spec:
-    selector:
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend
+  namespace: expense
+spec:
+  selector:
     app: backend
     tier: backend
     project: expense
   ports: 
   - protocol: TCP
     port: 8080
-    targetPort: 8080       
+    targetPort: 8080
+  type: ClusterIP
+   
 
     #Kubse ns cli tool to shortctu for - n expense( naming namespace again and again)
     # this is comi=unication between backend to mysql no need to expose services so putting cluterip
