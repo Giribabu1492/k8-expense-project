@@ -44,3 +44,5 @@ spec:
   - protocol: TCP
     port: 3306
     targetPort: 3306       
+
+    #Kubse ns cli tool to shortctu for - n expense( naming namespace again and again)

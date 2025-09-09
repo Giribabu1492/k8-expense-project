@@ -3,3 +3,5 @@ kind: Namespace
 metadata:
   name: expense
     
+
+    # befor starting project we need to create unique namespace so that all resoucese comes under this namespace

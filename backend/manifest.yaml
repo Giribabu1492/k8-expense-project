@@ -1,48 +1,46 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: mysql
+  name: backend
   namespace: expense
   labels:
-    app: mysql
-    tier: mysql
+    app: backend
+    tier: backend
     project: expense
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: mysql
-      tier: mysql
+      app: backend
+      tier: backend
       project: expense
   template:
     metadata:
       labels:
-        app: mysql
-        tier: mysql
+        app: backend
+        tier: backend
         project: expense
     spec:
       containers:
       - name: nginx
-        image: giri1492/mysql:1.0.0
+        image: giri1492/backend:1.0.0
        
         
-       #using deployemt model so that all replica and pod will create automatically.
-       #also to connect pod to pod communication between mysql to backend we have to use clusterip  services bcz pure internal
-       #backend directly will not connect to mysql pod it will conect mysql service file to handle loadbalance
----
-kind: Service
-apiVersion: v1
-metadata:
-  name: mysql
-  namespace: expense
-spec:
-  selector:
-    app: mysql
-    tier: mysql
+       
+  kind: Service
+  apiVersion: v1
+  metadata:
+    name: backend
+    namespace: expense
+  spec:
+    selector:
+    app: backend
+    tier: backend
     project: expense
   ports: 
   - protocol: TCP
-    port: 3306
-    targetPort: 3306       
+    port: 8080
+    targetPort: 8080       
 
     #Kubse ns cli tool to shortctu for - n expense( naming namespace again and again)
+    # this is comi=unication between backend to mysql no need to expose services so putting cluterip
