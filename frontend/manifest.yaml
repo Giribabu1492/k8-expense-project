@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend
+  namespace: expense
+  labels:
+    app: frontend
+    tier: web
+    project: expense
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: frontend
+      tier: web
+      project: expense
+  template:
+    metadata:
+      labels:
+        app: frontend
+        tier: web
+        project: expense
+    spec:
+      containers:
+      - name: frontend
+        image: giri1492/frontend:1.0.0
+        
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend
+  namespace: expense
+spec:
+  selector:
+    app: frontend
+    tier: web
+    project: expense
+  ports: 
+  - protocol: TCP
+    port: 80
+    targetPort: 80
+  type: LoadBalancer
+   
+
+    #Kubse ns cli tool to shortctu for - n expense( naming namespace again and again)
+    # this is comi=unication between frontend to mysql no need to expose services so putting cluterip
