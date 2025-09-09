@@ -11,7 +11,7 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      aapp: mysql
+      app: mysql
       tier: mysql
       project: expense
   template:
@@ -22,6 +22,12 @@ spec:
         project: expense
     spec:
       containers:
-      - name: nginx
-        image: mysql:latest
-        
+      - name: mysql
+        image: mysql:8.0
+        ports:
+        - containerPort: 3306
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: root123
+        - name: MYSQL_DATABASE
+          value: expense
