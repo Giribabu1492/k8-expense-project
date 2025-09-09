@@ -24,9 +24,8 @@ spec:
       containers:
       - name: nginx
         image: giri1492/backend:1.0.0
-       
-        
-       
+      
+---     
   kind: Service
   apiVersion: v1
   metadata:
